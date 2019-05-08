@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Engine/World.h"
 
 void ATankPlayerController::BeginPlay() 
 {
@@ -33,7 +34,7 @@ void ATankPlayerController::AimTowardsCrosshair()
 	// if it hits the landscape
 	if (GetSightRayHitLocation(HitLocation)) // Has side effect of raytracing
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Hit location: %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Hit location: %s"), *HitLocation.ToString());
 		// tell controlled tank to aim at this point
 	}
 }
@@ -51,9 +52,26 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OUTHitLocation) cons
 	FVector CameraWorldLocation, WorldDirection;
 	DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, CameraWorldLocation, WorldDirection);
 
-	// Line trace along that direction
-	// See what we hit up to maximum range
-	return false;
+	// Line trace along that direction, return location if hit landscape
+	if (GetLookVectorHitLocation(WorldDirection, OUTHitLocation)) {
+		return true;
+	} else { return false; }
+}
+
+// Ray trace along world direction and return hit location if hits landscape
+bool ATankPlayerController::GetLookVectorHitLocation(FVector WorldDirection, FVector & OUTHitLocation) const
+{
+	FHitResult HitResult;
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (WorldDirection * LineTraceRange);
+	FCollisionQueryParams Params(NAME_None, false, GetPawn());
+	bool HitLandscape = GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility, Params);
+	if (HitLandscape)
+	{
+		OUTHitLocation = HitResult.Location;
+		return true;
+	}
+	else { OUTHitLocation = FVector(0); return false; }
 }
 
 ATank* ATankPlayerController::GetControlledTank() const
