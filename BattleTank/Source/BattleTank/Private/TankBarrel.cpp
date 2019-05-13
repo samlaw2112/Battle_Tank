@@ -9,9 +9,6 @@ void UTankBarrel::Elevate(float RelativeSpeed) {
 	// Rotate barrel to face launch direction
 	// Move the right amount this frame given max elevation speed and frame time
 	
-	//auto Time = GetWorld()->TimeSeconds;
-	//UE_LOG(LogTemp, Warning, TEXT("%f: Elevating barrel"), Time);
-
 	auto ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
 	auto RawNewElevation = RelativeRotation.Pitch + ElevationChange;
 	auto NewElevation = FMath::Clamp<float>(RawNewElevation, MinElevation, MaxElevation);
