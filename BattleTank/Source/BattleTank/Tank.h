@@ -39,6 +39,10 @@ private:
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
 
+	float ReloadTimeInSeconds = 3.f;
+
+	double LastFireTime = 0;
+
 public:
 	void AimAt(FVector HitLocation);
 
