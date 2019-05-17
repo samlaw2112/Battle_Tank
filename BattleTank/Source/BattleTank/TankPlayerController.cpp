@@ -8,15 +8,6 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto ControlledTank = GetControlledTank();
-	if (ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank player controller found possessed tank: %s"), *ControlledTank->GetName());
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank player controller missing tank"));
-	}
 }
 
 // Called every frame
