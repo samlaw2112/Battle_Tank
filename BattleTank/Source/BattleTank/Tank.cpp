@@ -53,9 +53,6 @@ void ATank::Fire()
 
 	if (Barrel && IsReloaded)
 	{
-		auto Time = GetWorld()->TimeSeconds;
-		UE_LOG(LogTemp, Warning, TEXT("%f: Tank Firing"), Time);
-
 		// Spawn a projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBP,
