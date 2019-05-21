@@ -9,6 +9,7 @@
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
+	UE_LOG(LogTemp, Warning, TEXT("AI tank being play"));
 }
 
 // Called every frame
