@@ -31,6 +31,6 @@ void ATankAIController::Tick(float DeltaTime)
 
 	UE_LOG(LogTemp, Warning, TEXT("AI tank aiming at: %s"), *PlayerTank->GetActorLocation().ToString())
 
-	// TODO fix firing
-	//MyTank->Fire();
+	// Fire
+	AimingComponent->Fire();
 }
