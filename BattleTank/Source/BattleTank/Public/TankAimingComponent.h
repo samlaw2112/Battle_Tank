@@ -41,6 +41,7 @@ public:
 
 	EFiringStatus GetFiringStatus();
 
+	UFUNCTION(BlueprintCallable)
 	int GetRoundsLeft() const;
 
 protected:
