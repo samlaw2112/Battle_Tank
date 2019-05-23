@@ -23,6 +23,11 @@ UTankAimingComponent::UTankAimingComponent()
 	// ...
 }
 
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
+
 void UTankAimingComponent::BeginPlay()
 {
 	Super::BeginPlay();

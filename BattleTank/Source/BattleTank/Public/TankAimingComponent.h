@@ -12,7 +12,8 @@ enum class EFiringStatus : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	NoAmmo
 };
 
 // Forward declaration
@@ -30,7 +31,6 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-public:	
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
@@ -40,6 +40,8 @@ public:
 	void Fire();
 
 	EFiringStatus GetFiringStatus();
+
+	int GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -70,6 +72,8 @@ private:
 	double LastFireTime = 0;
 
 	FVector LaunchDirection;
+
+	int RoundsLeft = 10;
 
 		
 };
