@@ -42,8 +42,6 @@ private:
 	double LastFireTime = 0;
 
 public:
-	void AimAt(FVector HitLocation);
-
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
