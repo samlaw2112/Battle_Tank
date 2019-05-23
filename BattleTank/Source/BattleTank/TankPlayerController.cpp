@@ -2,13 +2,12 @@
 
 #include "TankPlayerController.h"
 #include "Engine/World.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
 
 void ATankPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 	{
 		FoundAimingComponent(AimingComponent);
@@ -26,14 +25,13 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!ensure(GetControlledTank())) { return; }
-
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	FVector HitLocation; // OUT parameter
 
 	// if it hits the landscape
 	if (GetSightRayHitLocation(HitLocation)) // Has side effect of raytracing
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 }
 
@@ -70,10 +68,4 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector WorldDirection, FVe
 		return true;
 	}
 	else { OUTHitLocation = FVector(0); return false; }
-}
-
-ATank* ATankPlayerController::GetControlledTank() const
-{
-	
-	return Cast<ATank>(GetPawn());
 }

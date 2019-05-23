@@ -30,7 +30,7 @@ public:
 	UTankAimingComponent();
 
 public:	
-	void AimAt(FVector HitLocation, float LaunchSpeed);
+	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void Initialise(UTankBarrel* BarrelToSet, UTurret* TurretToSet);
@@ -44,6 +44,9 @@ private:
 	UTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector LaunchDirection);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	float LaunchSpeed = 4000; // Sensible default
 
 		
 };
