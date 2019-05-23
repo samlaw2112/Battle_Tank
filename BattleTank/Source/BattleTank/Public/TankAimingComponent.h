@@ -39,6 +39,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
+	EFiringStatus GetFiringStatus();
+
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "State")
 	EFiringStatus FiringStatus = EFiringStatus::Aiming;
