@@ -53,6 +53,8 @@ private:
 
 	virtual void BeginPlay() override;
 
+	bool IsBarrelMoving();
+
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 4000; // Sensible default
@@ -64,6 +66,8 @@ private:
 	TSubclassOf<AProjectile> ProjectileBP;
 
 	double LastFireTime = 0;
+
+	FVector LaunchDirection;
 
 		
 };
