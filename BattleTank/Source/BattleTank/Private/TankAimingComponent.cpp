@@ -55,7 +55,6 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 		FiringStatus = EFiringStatus::Locked;
 	}
 
-	// TODO handle aiming and locked states
 }
 
 
