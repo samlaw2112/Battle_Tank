@@ -65,7 +65,7 @@ private:
 	float LaunchSpeed = 4000; // Sensible default
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
-	float ReloadTimeInSeconds = 3.f; // Sensible default
+	float ReloadTimeInSeconds = 2.f; // Sensible default
 
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	int32 RoundsLeft = 10;
