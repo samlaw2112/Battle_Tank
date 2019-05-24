@@ -19,9 +19,15 @@ private:
 
 	virtual void BeginPlay() override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
 protected:
 
 	// How close AI tank can get to player
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float AcceptanceRadius = 8000.f; // default
+
+public:
+	UFUNCTION()
+	void OnTankDeath();
 };
