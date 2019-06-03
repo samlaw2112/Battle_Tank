@@ -81,7 +81,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector WorldDirection, FVe
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + (WorldDirection * LineTraceRange);
 	FCollisionQueryParams Params(NAME_None, false, GetPawn());
-	bool HitLandscape = GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Visibility, Params);
+	bool HitLandscape = GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Camera, Params);
 	if (HitLandscape)
 	{
 		OUTHitLocation = HitResult.Location;
