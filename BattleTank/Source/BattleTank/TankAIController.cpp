@@ -29,7 +29,6 @@ void ATankAIController::SetPawn(APawn * InPawn)
 void ATankAIController::OnTankDeath()
 {
 	GetPawn()->DetachFromControllerPendingDestroy();
-	Destroy();
 }
 
 // Called every frame
