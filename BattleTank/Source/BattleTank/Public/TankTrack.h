@@ -30,9 +30,11 @@ private:
 
 	virtual void BeginPlay() override;
 
+	// Functions called by delegates need to be a ufunction
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 	
+	// Called on hit to only move tank when touching the ground
 	void ApplySidewaysForce();
 
 	void DriveTrack();

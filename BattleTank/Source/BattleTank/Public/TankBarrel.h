@@ -7,7 +7,7 @@
 #include "TankBarrel.generated.h"
 
 /**
- * 
+ Controls elevation of the barrel
  */
 UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
@@ -19,6 +19,7 @@ public:
 	void Elevate(float RelativeSpeed);
 
 private:
+	// Maximum elevation speed
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float MaxDegreesPerSecond = 10.f; // Sensible default
 

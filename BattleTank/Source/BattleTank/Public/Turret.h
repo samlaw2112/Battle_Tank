@@ -7,7 +7,7 @@
 #include "Turret.generated.h"
 
 /**
- * 
+ Controls rotation of the turret
  */
 UCLASS(meta = (BlueprintSpawnableComponent))
 class BATTLETANK_API UTurret : public UStaticMeshComponent
@@ -19,7 +19,8 @@ public:
 	void Rotate(float RelativeSpeed);
 
 private:
+	// Maximum rotation speed
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
-		float MaxDegreesPerSecond = 15.f; // Sensible default
+	float MaxDegreesPerSecond = 15.f; // Sensible default
 	
 };

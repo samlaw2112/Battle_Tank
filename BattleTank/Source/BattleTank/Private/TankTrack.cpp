@@ -10,22 +10,28 @@ UTankTrack::UTankTrack()
 void UTankTrack::BeginPlay()
 {
 	Super::BeginPlay();
+	// subscribe to on hit event
 	OnComponentHit.AddDynamic(this, &UTankTrack::OnHit);
 }
 
+// Called when tank track hits the ground
 void UTankTrack::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor, UPrimitiveComponent * OtherComponent, FVector NormalImpulse, const FHitResult & Hit)
 {
+	// Drive track when on ground using current throttle
 	DriveTrack();
+	// Apply sideways force to mimic friction
 	ApplySidewaysForce();
+	// Reset throttle so that it doesn't keep building when key held down
 	CurrentThrottle = 0;
 }
 
+// Apply sideways force to mimic friction
 void UTankTrack::ApplySidewaysForce()
 {
-	// Calculate the slippage speed
+	// Calculate the slippage speed (Amount we are currently moving to the side)
 	auto SlippageSpeed = FVector::DotProduct(GetComponentVelocity(), GetRightVector());
 
-	// Work out the require acceleration this frame to correct
+	// Work out the require acceleration this frame to correct (equal and opposite force for this frame)
 	auto DeltaTime = GetWorld()->GetDeltaSeconds();
 	auto CorrectionAcceleration = -SlippageSpeed / DeltaTime * GetRightVector();
 
@@ -37,9 +43,11 @@ void UTankTrack::ApplySidewaysForce()
 
 void UTankTrack::SetThrottle(float Throttle)
 {
+	// Between -1 and 1
 	CurrentThrottle = FMath::Clamp<float>(CurrentThrottle + Throttle, -1, 1);
 }
 
+// Apply force to track
 void UTankTrack::DriveTrack()
 {
 	auto ForceApplied = GetForwardVector() * CurrentThrottle * TrackMaxDrivingForce;

@@ -6,6 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+// Macro to set up tank delegate
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
 
 UCLASS()
@@ -28,12 +29,13 @@ private:
 
 
 public:
-	// called by engine with actor damage is dealt
+	// called by engine when actor damage is dealt
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
 
 	// Returns current health as a % of starting health
 	UFUNCTION(BlueprintPure, Category = "Health")
 	float GetPercentHealth() const;
 
+	// Tank delegate accessible by other classes
 	FTankDelegate OnDeath;
 };

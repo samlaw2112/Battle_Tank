@@ -28,11 +28,13 @@ public:
 	void LaunchProjectile(float LaunchSpeed);
 
 private:
+	// Functions called by delegates need to be a ufunction
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
 
 	void DestroyProjectile();
 	
+	// Various components set up for blueprint
 	UProjectileMovementComponent* ProjectileMovement = nullptr;
 
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
@@ -47,9 +49,11 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Setup")
 	URadialForceComponent* ExplosionForce = nullptr;
 
+	// Time to destroy projectile after launch
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float DestroyDelay = 10;
 
+	// Damage inflicted by projectile
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float Damage = 20;
 

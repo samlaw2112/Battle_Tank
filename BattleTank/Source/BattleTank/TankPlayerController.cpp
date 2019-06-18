@@ -8,6 +8,8 @@
 void ATankPlayerController::BeginPlay() 
 {
 	Super::BeginPlay();
+
+	// Find aiming component and supply to blueprint
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (ensure(AimingComponent))
 	{
@@ -30,6 +32,7 @@ void ATankPlayerController::SetPawn(APawn * InPawn)
 	}
 }
 
+// Called when tank's OnDeath event is broadcast
 void ATankPlayerController::OnTankDeath()
 {
 	StartSpectatingOnly();
@@ -62,6 +65,7 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OUTHitLocation) cons
 	// Find crosshair position in pixel coordinates
 	int32 ViewportSizeX, ViewportSizeY;
 	GetViewportSize(ViewportSizeX, ViewportSizeY);
+	// CrosshairLocationX and Y are values between 0 - 1
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrosshairLocationX, ViewportSizeY * CrosshairLocationY);
 
 	// De-project screen pos of crosshair to world direction
@@ -77,15 +81,21 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OUTHitLocation) cons
 // Ray trace along world direction and return hit location if hits landscape
 bool ATankPlayerController::GetLookVectorHitLocation(FVector WorldDirection, FVector & OUTHitLocation) const
 {
-	FHitResult HitResult;
+	FHitResult HitResult; // OUT parameter
+
+	// Start and end of line trace
 	auto StartLocation = PlayerCameraManager->GetCameraLocation();
 	auto EndLocation = StartLocation + (WorldDirection * LineTraceRange);
+
+	// Params for collisions: no name tag, don't use complex collision, actor = pawn
 	FCollisionQueryParams Params(NAME_None, false, GetPawn());
+
+	// Line trace and return true if hit landscape (i.e. objects in ECollusionChannel:ECC_Camera)
 	bool HitLandscape = GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECollisionChannel::ECC_Camera, Params);
 	if (HitLandscape)
 	{
 		OUTHitLocation = HitResult.Location;
 		return true;
 	}
-	else { OUTHitLocation = FVector(0); return false; }
+	else { OUTHitLocation = FVector(0); return false; } // Return 0 for hit location if not found
 }
